@@ -4,7 +4,7 @@
     var _ = require('underscore');
     var http = require('http');
     var config = require('./config.js');
-    var util = require('./util.js');
+    var util = require('./util/util.js');
     var resJson = require('./response/json.js');
     var resSeeOther = require('./response/seeOther.js');
 

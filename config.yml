@@ -4,7 +4,7 @@ env:
 rules:
   - request:
       method: get
-      url: /path?q=123&p=456
+      url: /path?q={q}&p={p:.+}&k=1
     response:
       json:
         {
