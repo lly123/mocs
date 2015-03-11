@@ -1,0 +1,19 @@
+env:
+  server: "nginx/1.4.6 (Ubuntu)"
+
+rules:
+  - request:
+      method: get
+      url: /path?q=123&p=456
+    response:
+      json:
+        {
+          a: 1,
+          b: "abc"
+        }
+
+  - request:
+      method: post
+      url: /p2
+    response:
+      save: /photo
