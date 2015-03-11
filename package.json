@@ -1,0 +1,11 @@
+{
+  "name": "mocs",
+  "version": "1.0.0",
+  "description": "A Mock Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "richard li",
+  "license": "ISC"
+}
