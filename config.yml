@@ -13,6 +13,12 @@ rules:
         }
 
   - request:
+      method: _
+      url: /seeOther
+    response:
+      seeOther: http://www.google.com
+
+  - request:
       method: post
       url: /p2
     response:
