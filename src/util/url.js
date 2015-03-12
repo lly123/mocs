@@ -6,7 +6,7 @@
 
     var compile = function (fn) {
         return function (urlInRule) {
-            var ret = _.reduce(regex.repeat(/\{([0-9|a-z|A_Z]+)(?:\:(.+))?\}/g)(urlInRule),
+            var ret = _.reduce(regex.repeat(/\{([0-9|a-z|A-Z]+)(?:\:(.+))?\}/g)(urlInRule),
                 function (s, m) {
                     var nextIndex = m.index + m[0].length;
                     var paraRegex = _.isUndefined(m[2]) ? '(.+)' : '(' + m[2] + ')';
@@ -32,9 +32,10 @@
                 c.regex = regex.escape(url);
             }
 
-            return new RegExp(c.regex).exec(url) === null ?
+            var ret = new RegExp(c.regex).exec(url);
+            return ret === null ?
             {isMatched: false} :
-            {isMatched: true, urlParams: _.zip(c.paramNames, new RegExp(c.regex).exec(url).slice(1))};
+            {isMatched: true, urlParams: _.zip(c.paramNames, ret.slice(1))};
         };
     };
 

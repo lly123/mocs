@@ -1,11 +1,14 @@
 env:
-  server: "nginx/1.4.6 (Ubuntu)"
-  realHost: localhost:8080
+  serverName: "nginx/1.4.6 (Ubuntu)"
 
-rules:
+constant:
+  host1: localhost:8080
+  dir1: /Users/richard/workspace/akqa/nikewomenswechat/src/main/webapp/static/dist
+
+rule:
   - request:
       method: get
-      url: /path?q={q}&p={p:.+}&k=1
+      url: /path?q={q}&p={p:.+}
     response:
       json:
         {
@@ -26,10 +29,11 @@ rules:
       save: /photo
 
   - request:
-      method: _
-      url: _
+      method: get
+      url: /nw/{path:.+\.(?:html|jpg)}
     response:
+#      file: "{{dir1}}/{{path}}"
       json:
         {
-          default: true
+          path: "{{path}}"
         }

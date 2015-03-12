@@ -23,17 +23,20 @@
                         var matcher = url.parse(r.url)(request.url);
                         var isUrlMatched = matcher.isMatched;
 
-                        rule.request.isMatched = isMethodMatched && isUrlMatched;
-                        rule.request.urlParams = matcher.urlParams;
+                        var constants = _.chain(config.constant).map(function (v, k) {
+                            return [k, v];
+                        }).value() || [];
 
+                        rule.request.isMatched = isMethodMatched && isUrlMatched;
+                        rule.request.params = constants.concat(matcher.urlParams || []);
                         return rule;
                     })
-                )(config.rules);
+                )(config.rule);
             },
 
             env: function () {
                 return {
-                    server: config.env.server
+                    serverName: config.env.serverName
                 };
             }
         };
