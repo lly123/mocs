@@ -25,7 +25,6 @@
         };
     };
 
-
     var parse = function (c) {
         return function (url) {
             if (c.regex === null) {
@@ -34,8 +33,8 @@
 
             var ret = new RegExp(c.regex).exec(url);
             return ret === null ?
-            {isMatched: false} :
-            {isMatched: true, urlParams: _.zip(c.paramNames, ret.slice(1))};
+            {isMatched: false, urlParams: [['_', url]]} :
+            {isMatched: true, urlParams: _.zip(c.paramNames, ret.slice(1)).concat([['_', url]])};
         };
     };
 

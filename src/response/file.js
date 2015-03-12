@@ -23,7 +23,7 @@
                 res.writeHead(500);
                 res.end();
             } else {
-                header(env, res, mime.lookup(filePath));
+                header(env, res, mime.lookup(filePath) || 'application/octet-stream');
                 res.end(content);
             }
         });
