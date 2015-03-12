@@ -9,8 +9,8 @@ rules:
     response:
       json:
         {
-          a: 1,
-          b: "abc"
+          a: "{{q}}",
+          b: "{{p}}"
         }
 
   - request:
