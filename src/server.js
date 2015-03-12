@@ -11,19 +11,19 @@
     var globalConfig;
 
     var server = http.createServer(function (request, response) {
-        _.compose(function (r) {
+        _.compose(function (rule) {
             util.isTrue(globalConfig.env())(
-                [!r, function () {
+                [!rule, function () {
                     response.statusCode = 404;
                     response.end();
                 }],
 
-                [r && r.response.json, function (e) {
-                    resJson.run(response, e, r.response.json);
+                [rule && rule.response.json, function (e) {
+                    resJson.run(response, e, rule);
                 }],
 
-                [r && r.response.seeOther, function (e) {
-                    resSeeOther.run(response, e, r.response.seeOther);
+                [rule && rule.response.seeOther, function (e) {
+                    resSeeOther.run(response, e, rule);
                 }]
             );
         }, _.first, globalConfig.rules)(request);

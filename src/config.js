@@ -11,14 +11,20 @@
 
         return {
             rules: function (request) {
-                return _.filter(config.rules, function (rule) {
+                var list = _.map(config.rules, function (rule) {
                     var r = rule.request;
                     var isMethodMatched = _.isEqual(r.method, '_') || _.isEqual(request.method.toUpperCase(), r.method.toUpperCase());
+                    var matcher = url.parse(r.url)(request.url);
+                    var isUrlMatched = matcher.isMatched;
 
-                    var matcher = url.parse(r.url, request.url);
+                    rule.request.isMatched = isMethodMatched && isUrlMatched;
+                    rule.request.urlParams = matcher.urlParams;
 
-                    var isUrlMatched = _.isEqual(request.url.toUpperCase(), r.url.toUpperCase());
-                    return isMethodMatched && isUrlMatched;
+                    return rule;
+                });
+
+                return _.filter(list, function (rule) {
+                    return rule.request.isMatched;
                 });
             },
 

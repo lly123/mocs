@@ -11,8 +11,8 @@
             });
     };
 
-    var run = function (res, env, url) {
-        header(env, res, url);
+    var run = function (res, env, rule) {
+        header(env, res, rule.response.seeOther);
         res.end();
     };
 

@@ -11,9 +11,9 @@
             });
     };
 
-    var run = function (res, env, content) {
+    var run = function (res, env, rule) {
         header(env, res);
-        res.end(JSON.stringify(content));
+        res.end(JSON.stringify(rule.response.json));
     };
 
     module.exports.run = run;
