@@ -5,27 +5,30 @@
     var yaml = require('js-yaml');
     var fs = require('fs');
     var url = require('./util/url.js');
+    var util = require('./util/util.js');
 
     var load = function () {
         var config = yaml.safeLoad(fs.readFileSync('config.yml', 'utf8'));
 
         return {
             rules: function (request) {
-                var list = _.map(config.rules, function (rule) {
-                    var r = rule.request;
-                    var isMethodMatched = _.isEqual(r.method, '_') || _.isEqual(request.method.toUpperCase(), r.method.toUpperCase());
-                    var matcher = url.parse(r.url)(request.url);
-                    var isUrlMatched = matcher.isMatched;
+                return _.compose(
+                    util.c2(_.filter, function (rule) {
+                        return rule.request.isMatched;
+                    }),
 
-                    rule.request.isMatched = isMethodMatched && isUrlMatched;
-                    rule.request.urlParams = matcher.urlParams;
+                    util.c2(_.map, function (rule) {
+                        var r = rule.request;
+                        var isMethodMatched = _.isEqual(r.method, '_') || _.isEqual(request.method.toUpperCase(), r.method.toUpperCase());
+                        var matcher = url.parse(r.url)(request.url);
+                        var isUrlMatched = matcher.isMatched;
 
-                    return rule;
-                });
+                        rule.request.isMatched = isMethodMatched && isUrlMatched;
+                        rule.request.urlParams = matcher.urlParams;
 
-                return _.filter(list, function (rule) {
-                    return rule.request.isMatched;
-                });
+                        return rule;
+                    })
+                )(config.rules);
             },
 
             env: function () {
