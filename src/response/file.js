@@ -3,7 +3,7 @@
 
     var fs = require('fs');
     var path = require('path');
-    var mime = require('mime-types')
+    var mime = require('mime-types');
     var param = require('../util/param');
 
     var header = function (env, res, contentType) {
