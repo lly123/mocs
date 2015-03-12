@@ -19,13 +19,19 @@
                 ret[1] += regex.escape(urlInRule.substring(ret[0], urlInRule.length));
             }
 
-            return fn({regex: ret[1], paramNames: ret[2]});
+            return _.isEqual(urlInRule, '_') ?
+                fn({regex: null, paramNames: []}) :
+                fn({regex: ret[1], paramNames: ret[2]});
         };
     };
 
 
     var parse = function (c) {
         return function (url) {
+            if (c.regex === null) {
+                c.regex = regex.escape(url);
+            }
+
             return new RegExp(c.regex).exec(url) === null ?
             {isMatched: false} :
             {isMatched: true, urlParams: _.zip(c.paramNames, new RegExp(c.regex).exec(url).slice(1))};

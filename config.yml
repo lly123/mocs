@@ -1,5 +1,6 @@
 env:
   server: "nginx/1.4.6 (Ubuntu)"
+  realHost: localhost:8080
 
 rules:
   - request:
@@ -23,3 +24,12 @@ rules:
       url: /p2
     response:
       save: /photo
+
+  - request:
+      method: _
+      url: _
+    response:
+      json:
+        {
+          default: true
+        }
