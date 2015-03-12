@@ -5,8 +5,10 @@
     var http = require('http');
     var config = require('./config.js');
     var util = require('./util/util.js');
+
     var resJson = require('./response/json.js');
     var resSeeOther = require('./response/seeOther.js');
+    var resFile = require('./response/file.js');
 
     var globalConfig;
 
@@ -24,6 +26,10 @@
 
                 [rule && rule.response.seeOther, function (e) {
                     resSeeOther.run(response, e, rule);
+                }],
+
+                [rule && rule.response.file, function (e) {
+                    resFile.run(response, e, rule);
                 }]
             );
         }, _.first, globalConfig.rules)(request);

@@ -10,5 +10,11 @@
         return i > -1 ? params[i][1] : "";
     }
 
-    module.exports.find = find;
+    var replace = function (params, v) {
+        return v.replace(/\{\{([0-9|a-z|A_Z]+)\}\}/g, function (s, v) {
+            return find(params, v);
+        });
+    }
+
+    module.exports.replace = replace;
 }());

@@ -1,7 +1,6 @@
 (function () {
     'use strict';
 
-    var _ = require('underscore');
     var param = require('../util/param');
 
     var header = function (env, res) {
@@ -15,14 +14,8 @@
     };
 
     var run = function (res, env, rule) {
-        var content = JSON.stringify(rule.response.json);
-
-        content = content.replace(/\{\{([0-9|a-z|A_Z]+)\}\}/g, function (s, v) {
-            return param.find(rule.request.params, v);
-        });
-
         header(env, res);
-        res.end(content);
+        res.end(param.replace(rule.request.params, JSON.stringify(rule.response.json)));
     };
 
     module.exports.run = run;

@@ -30,10 +30,10 @@ rule:
 
   - request:
       method: get
-      url: /nw/{path:.+\.(?:html|jpg)}
+      url: /nw/{path:.+\.(?:html|jpg|png)}
     response:
-#      file: "{{dir1}}/{{path}}"
-      json:
-        {
-          path: "{{path}}"
-        }
+      file: "{{dir1}}/{{path}}"
+#      json:
+#        {
+#          path: "{{path}}"
+#        }
