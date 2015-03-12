@@ -14,13 +14,29 @@
                         './src/{,*/}*.js'
                     ]
                 }
+            },
+
+            jasmine_node: {
+                options: {
+                    forceExit: true,
+                    match: '.',
+                    matchall: false,
+                    extensions: 'js',
+                    specNameMatcher: 'test',
+                    jUnit: {
+                        report: false
+                    }
+                },
+                all: ['spec/']
             }
         });
 
         grunt.loadNpmTasks('grunt-contrib-jshint');
+        grunt.loadNpmTasks('grunt-jasmine-node');
 
         grunt.registerTask('default', [
-            'jshint'
+            'jshint',
+            'jasmine_node'
         ]);
     };
 }());
