@@ -25,4 +25,30 @@ describe('diff.js >', function () {
         expect(ret[0]).toEqual({objName: 'root', keys: {deletedKeys: [ 'k1', 'k4' ], addedKeys: [ 'k5' ]}});
         expect(ret[1]).toEqual({objName: 'root', keys: {typeChangedKeys: [ 'k3' ]}});
     });
+
+    it('should diff more level', function () {
+        var obj1 = {
+            k1: 1,
+            k2: {
+                a: 1,
+                b: 'hello'
+            }
+        }
+
+        var obj2 = {
+            k1: 'test',
+            k2: {
+                c: {}
+            }
+        }
+
+        var ret = [];
+        diff.diff('root', obj1, obj2, function (r) {
+            ret.push(r);
+        });
+
+        expect(ret.length).toBe(2);
+        expect(ret[0]).toEqual({"objName": "root", "keys": {"typeChangedKeys": ["k1"]}});
+        expect(ret[1]).toEqual({"objName": "k2", "keys": {"deletedKeys": ["a", "b"], "addedKeys": ["c"]}});
+    });
 });
