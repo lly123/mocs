@@ -14,8 +14,11 @@
 
     var callSpy = function (request, headers, body, format) {
         console.log(clc.magentaBright('METHOD: %s, URL %s'), request.method, request.url);
-        console.log(clc.magentaBright('RESPONSE HEADER: '), headers);
-        console.log(clc.magentaBright('RESPONSE BODY: '), body);
+
+        if (_.isEqual('sample', format) || _.isEqual('json', format)) {
+            console.log(clc.magentaBright('RESPONSE HEADER: '), headers);
+            console.log(clc.magentaBright('RESPONSE BODY: '), body);
+        }
 
         if (_.isEqual('json', format)) {
             console.log(clc.magentaBright('RESPONSE JSON:'));
