@@ -3,13 +3,15 @@
 
     var _ = require('underscore');
     var http = require('http');
-    var config = require('./config.js');
-    var util = require('./util/util.js');
 
-    var resJson = require('./response/json.js');
-    var resSeeOther = require('./response/seeOther.js');
-    var resFile = require('./response/file.js');
-    var resCall = require('./response/call.js');
+    var config = require('./config');
+    var util = require('./util/util');
+    var log = require('./util/log');
+
+    var resJson = require('./response/json');
+    var resSeeOther = require('./response/seeOther');
+    var resFile = require('./response/file');
+    var resCall = require('./response/call');
 
     var globalConfig;
 
@@ -19,6 +21,8 @@
                 [!rule, function () {
                     response.statusCode = 404;
                     response.end();
+
+                    log.notMatchedIncomingRequest(request);
                 }],
 
                 [rule && rule.response.json, function (e) {
@@ -41,7 +45,7 @@
     });
 
     server.listen(3000, function () {
-        console.log("Server listening on port 3000.");
+        console.log("Server listening on port 3000.\n");
         globalConfig = config.load();
     });
 }());

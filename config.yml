@@ -17,6 +17,12 @@ rule:
         }
 
   - request:
+      method: get
+      url: /nw/{path:.+\.(?:[a-z]+)}
+    response:
+      file: "{{dir1}}/{{path}}"
+
+  - request:
       method: _
       url: /seeOther
     response:
@@ -27,12 +33,6 @@ rule:
       url: /nw/images/hub-text.2bd37f8b.png
     response:
       call: "{{host1}}{{_}}"
-
-  - request:
-      method: get
-      url: /nw/{path:.+\.(?:[a-z]+)}
-    response:
-      file: "{{dir1}}/{{path}}"
 
 #  - request:
 #      method: post

@@ -4,8 +4,8 @@
     var _ = require('underscore');
     var yaml = require('js-yaml');
     var fs = require('fs');
-    var url = require('./util/url.js');
-    var util = require('./util/util.js');
+    var url = require('./util/url');
+    var util = require('./util/util');
 
     var load = function () {
         var config = yaml.safeLoad(fs.readFileSync('config.yml', 'utf8'));
