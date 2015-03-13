@@ -51,14 +51,16 @@
 
     var run = function (req, res, env, rule, compare) {
         generateNewRequest(req, rule, function (newReq, headers) {
-            res = compare && {
-                writeHead: function () {
-                },
-                write: function () {
-                },
-                end: function () {
-                }
-            };
+            if (compare) {
+                res = {
+                    writeHead: function () {
+                    },
+                    write: function () {
+                    },
+                    end: function () {
+                    }
+                };
+            }
 
             var options = {
                 hostname: newReq.hostname,

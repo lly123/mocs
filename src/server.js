@@ -30,7 +30,8 @@
                         [rule && rule.response.json && rule.response.call, function (rule) {
                             resJson.run(response, e, rule);
                             resCall.run(request, response, e, rule, function (realData) {
-                                console.log(">>>> ", realData);
+
+                                console.log(diff.applyDiff(rule.response.json, JSON.parse(realData)));
                             });
                         }],
 

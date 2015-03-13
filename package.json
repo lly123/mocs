@@ -5,13 +5,15 @@
     "main": "server.js",
     "author": "richard li",
     "license": "ISC",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+
     "dependencies": {
         "js-yaml": "~3.2.7",
-        "underscore": "~1.8.2"
+        "underscore": "~1.8.2",
+        "cli-color": "^0.3.2",
+        "mime-types": "^2.0.9",
+        "prettyjson": "^1.1.0"
     },
+
     "devDependencies": {
         "grunt-contrib-jshint": "^0.10.0",
         "grunt-jasmine-node": "~0.2.1",
