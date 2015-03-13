@@ -2,7 +2,7 @@ env:
   serverName: "nginx/1.4.6 (Ubuntu)"
 
 constant:
-  host1: http://nwt.kz-ec.com
+  host1: http://localhost:8080
   dir1: /Users/richard/workspace/akqa/nikewomenswechat/src/main/webapp/static/dist
 
 rule:
@@ -15,6 +15,14 @@ rule:
           a: "{{q}}",
           b: "{{p}}"
         }
+
+  - request:
+      method: get
+      url: /api/user/current
+    response:
+      call:
+        url: "{{host1}}{{_}}"
+        cookie: openid=oM_DGs0TB1synvlnRGzLfEqWU-Yk
 
   - request:
       method: get

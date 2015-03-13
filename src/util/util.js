@@ -27,8 +27,34 @@
         };
     };
 
+    var mergeCookies = function (c1, c2) {
+        var toArray = function (c) {
+            return _.reduce(c.split(';'), function (s, v) {
+                s.push(_.map(v.trim().split('='), function (x) {
+                    return x.trim();
+                }));
+                return s;
+            }, []);
+        };
+
+        if (c1 && !c2) {
+            return c1;
+        }
+
+        if (!c1 && c2) {
+            return c2;
+        }
+
+        var o = _.object(toArray(c1).concat(toArray(c2)));
+
+        return _.reduce(o, function (s, v, k) {
+            return s + k + '=' + v + ';';
+        }, "").slice(0, -1);
+    };
+
     module.exports.isTrue = isTrue;
     module.exports.c1 = c1;
     module.exports.c2 = c2;
+    module.exports.mergeCookies = mergeCookies;
 }());
 
