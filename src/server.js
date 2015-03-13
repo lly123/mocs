@@ -25,20 +25,31 @@
                     log.notMatchedIncomingRequest(request);
                 }],
 
-                [rule && rule.response.json, function (e) {
-                    resJson.run(response, e, rule);
-                }],
+                [rule && (rule.response.json || rule.response.call), function (e) {
+                    util.isTrue(rule)(
+                        [rule && rule.response.json && rule.response.call, function (rule) {
+                            resJson.run(response, e, rule);
+                            resCall.run(request, response, e, rule, function (realData) {
+                                console.log(">>>> ", realData);
+                            });
+                        }],
 
-                [rule && rule.response.seeOther, function (e) {
-                    resSeeOther.run(response, e, rule);
+                        [rule && rule.response.json, function (rule) {
+                            resJson.run(response, e, rule);
+                        }],
+
+                        [rule && rule.response.call, function (rule) {
+                            resCall.run(request, response, e, rule);
+                        }]
+                    );
                 }],
 
                 [rule && rule.response.file, function (e) {
                     resFile.run(response, e, rule);
                 }],
 
-                [rule && rule.response.call, function (e) {
-                    resCall.run(request, response, e, rule);
+                [rule && rule.response.seeOther, function (e) {
+                    resSeeOther.run(response, e, rule);
                 }]
             );
         }, _.first, globalConfig.rules)(request);

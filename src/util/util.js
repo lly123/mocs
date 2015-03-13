@@ -6,11 +6,13 @@
     var isTrue = function () {
         var args = _.toArray(arguments);
         return function () {
-            _.each(arguments, function (a) {
-                if (a[0]) {
+            _.reduce(arguments, function (s, a) {
+                if (s && a[0]) {
                     a[1].apply(a[1], args);
+                    return false;
                 }
-            });
+                return s;
+            }, true);
         };
     };
 
