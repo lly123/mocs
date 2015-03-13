@@ -9,6 +9,7 @@
     var resJson = require('./response/json.js');
     var resSeeOther = require('./response/seeOther.js');
     var resFile = require('./response/file.js');
+    var resCall = require('./response/call.js');
 
     var globalConfig;
 
@@ -30,6 +31,10 @@
 
                 [rule && rule.response.file, function (e) {
                     resFile.run(response, e, rule);
+                }],
+
+                [rule && rule.response.call, function (e) {
+                    resCall.run(request, response, e, rule);
                 }]
             );
         }, _.first, globalConfig.rules)(request);

@@ -2,7 +2,7 @@ env:
   serverName: "nginx/1.4.6 (Ubuntu)"
 
 constant:
-  host1: localhost:8080
+  host1: http://nwt.kz-ec.com
   dir1: /Users/richard/workspace/akqa/nikewomenswechat/src/main/webapp/static/dist
 
 rule:
@@ -23,16 +23,23 @@ rule:
       seeOther: http://www.google.com
 
   - request:
-      method: post
-      url: /p2
+      method: get
+      url: /nw/images/hub-text.2bd37f8b.png
     response:
-      save: /photo
+      call: "{{host1}}{{_}}"
 
   - request:
       method: get
       url: /nw/{path:.+\.(?:[a-z]+)}
     response:
       file: "{{dir1}}/{{path}}"
+
+#  - request:
+#      method: post
+#      url: /p2
+#    response:
+#      save: /photo
+
 #      json:
 #        {
 #          path: "{{path}}"
