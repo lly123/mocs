@@ -1,22 +1,21 @@
 {
-    "name": "mocs",
-    "version": "1.0.0",
-    "description": "A Mock Server",
-    "main": "server.js",
-    "author": "richard li",
-    "license": "ISC",
-
-    "dependencies": {
-        "js-yaml": "~3.2.7",
-        "underscore": "~1.8.2",
-        "cli-color": "^0.3.2",
-        "mime-types": "^2.0.9",
-        "prettyjson": "^1.1.0"
-    },
-
-    "devDependencies": {
-        "grunt-contrib-jshint": "^0.10.0",
-        "grunt-jasmine-node": "~0.2.1",
-        "jshint-stylish": "^1.0.1"
-    }
+  "name": "mocs",
+  "version": "1.0.0",
+  "description": "A Mock Server",
+  "main": "server.js",
+  "author": "richard li",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "~3.2.7",
+    "underscore": "~1.8.2",
+    "cli-color": "^0.3.2",
+    "mime-types": "^2.0.9",
+    "prettyjson": "^1.1.0",
+    "node-watch": "^0.3.4"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jasmine-node": "~0.2.1",
+    "jshint-stylish": "^1.0.1"
+  }
 }

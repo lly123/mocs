@@ -4,11 +4,35 @@
     var _ = require('underscore');
     var yaml = require('js-yaml');
     var fs = require('fs');
+    var watch = require('node-watch');
+
     var url = require('./util/url');
     var util = require('./util/util');
 
+    var loadConfig = function (fileName, success, error) {
+        try {
+            success(yaml.safeLoad(fs.readFileSync(fileName, 'utf8')));
+        } catch (e) {
+            error && error();
+        }
+    }
+
     var load = function () {
-        var config = yaml.safeLoad(fs.readFileSync('config.yml', 'utf8'));
+        var configFileName = 'config.yml';
+        var config;
+
+        loadConfig(configFileName, function (c) {
+            config = c;
+        }, function () {
+            process.exit(1);
+        });
+
+        watch(configFileName, function () {
+            loadConfig(configFileName, function (c) {
+                console.log('Configuration has been reloaded.');
+                config = c;
+            });
+        });
 
         return {
             rules: function (request) {
