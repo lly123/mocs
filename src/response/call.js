@@ -10,7 +10,7 @@
         var headers = _.omit(newRes.headers, function (value, key) {
             return _.isEqual(key.toLowerCase(), 'server') || _.isEqual(key.toLowerCase(), 'cache-control');
         });
-        headers['Server'] = env.serverName;
+        headers.Server = env.serverName;
         headers['Cache-Control'] = 'no-cache';
 
         console.log(headers);
@@ -22,9 +22,9 @@
         var callUrl = param.replace(rule.request.params, rule.response.call);
         var newReq = url.parse(callUrl);
         var headers = _.omit(req.headers, function (value, key) {
-            return _.isEqual(key.toLowerCase(), 'host')
-                || _.isEqual(key.toLowerCase(), 'if-none-match')
-                || _.isEqual(key.toLowerCase(), 'if-modified-since');
+            return _.isEqual(key.toLowerCase(), 'host') ||
+                _.isEqual(key.toLowerCase(), 'if-none-match') ||
+                _.isEqual(key.toLowerCase(), 'if-modified-since');
         });
 
         var options = {
