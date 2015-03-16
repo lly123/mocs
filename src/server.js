@@ -26,11 +26,11 @@
                     log.notMatchedIncomingRequest(request);
                 }],
 
-                [rule && rule.response.json, function (rule) {
+                [rule && rule.response.json, function (e) {
                     resJson.run(response, e, rule);
                 }],
 
-                [rule && rule.response.call, function (rule) {
+                [rule && rule.response.call, function (e) {
                     resCall.run(request, response, e, rule,
                         rule.response.json ?
                             function (realData) {
