@@ -3,7 +3,7 @@
 
     var _ = require('underscore');
 
-    var diff = function (objName, o1, o2, fn) {
+    var apply = function (objName, o1, o2, fn) {
         var typeOf = function (obj) {
             return {}.toString.call(obj);
         };
@@ -16,10 +16,10 @@
             if (!_.isEmpty(deletedKeys) || !_.isEmpty(addedKeys)) {
                 fn(
                     {
-                        objName: objName,
+                        name: objName,
                         keys: {
-                            deletedKeys: deletedKeys,
-                            addedKeys: addedKeys
+                            addedKeys: addedKeys,
+                            deletedKeys: deletedKeys
                         }
                     }
                 );
@@ -42,7 +42,7 @@
             if (!_.isEmpty(typeChangedKeys)) {
                 fn(
                     {
-                        objName: objName,
+                        name: objName,
                         keys: {
                             typeChangedKeys: typeChangedKeys
                         }
@@ -60,11 +60,11 @@
 
             _.each(deepKeys, function (key) {
                 if (typeOf(o1[key]) === '[object Object]') {
-                    diff(key, o1[key], o2[key], fn);
+                    apply(objName + ' -> ' + key, o1[key], o2[key], fn);
                 }
             });
         }
     };
 
-    module.exports.diff = diff;
+    module.exports.apply = apply;
 }());

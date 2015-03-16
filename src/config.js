@@ -30,7 +30,7 @@
 
         watch(configFileName, function () {
             loadConfig(configFileName, function (c) {
-                console.log('Configuration has been reloaded.');
+                console.log('Configuration has been reloaded.\n');
                 config = c;
             });
         });

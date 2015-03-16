@@ -32,7 +32,7 @@ rule:
           "name": "Freeroom",
           "trainingSport": {
             "key": "NTC",
-            "displayName": "NTC"
+            "displayName": 1
           },
           "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
           "profilePicture": {

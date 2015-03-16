@@ -7,6 +7,7 @@
     var config = require('./config');
     var util = require('./util/util');
     var log = require('./util/log');
+    var diff = require('./util/diff');
 
     var resJson = require('./response/json');
     var resSeeOther = require('./response/seeOther');
@@ -30,8 +31,9 @@
                         [rule && rule.response.json && rule.response.call, function (rule) {
                             resJson.run(response, e, rule);
                             resCall.run(request, response, e, rule, function (realData) {
-
-                                console.log(diff.applyDiff(rule.response.json, JSON.parse(realData)));
+                                diff.apply('ROOT', rule.response.json, JSON.parse(realData), function (m) {
+                                    log.keyChanged(m);
+                                });
                             });
                         }],
 

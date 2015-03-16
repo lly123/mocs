@@ -35,21 +35,6 @@
         fn(newReq, headers);
     };
 
-//    var spy = function (res) {
-//        var headers = res.headers;
-//        var body = '';
-//
-//        return {
-//            content: function (chunk) {
-//                body += chunk;
-//            },
-//
-//            log: function (req, format) {
-//                log.callSpy(req, headers, body, format);
-//            }
-//        };
-//    };
-
     var run = function (req, res, env, rule, compare) {
         generateNewRequest(req, rule, function (newReq, headers) {
             if (compare) {
