@@ -9,13 +9,13 @@ describe('diff.js >', function () {
             k2: 'test',
             k3: [1],
             k4: {}
-        }
+        };
 
         var obj2 = {
             k2: 'test',
             k3: {a: 1},
             k5: 'hello'
-        }
+        };
 
         var ret = [];
         diff.diff('root', obj1, obj2, function (r) {
@@ -33,14 +33,14 @@ describe('diff.js >', function () {
                 a: 1,
                 b: 'hello'
             }
-        }
+        };
 
         var obj2 = {
             k1: 'test',
             k2: {
                 c: {}
             }
-        }
+        };
 
         var ret = [];
         diff.diff('root', obj1, obj2, function (r) {

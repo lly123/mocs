@@ -1,3 +1,4 @@
+/*jshint expr:true */
 (function () {
     'use strict';
 
@@ -15,7 +16,7 @@
         } catch (e) {
             error && error();
         }
-    }
+    };
 
     var load = function () {
         var configFileName = 'config.yml';

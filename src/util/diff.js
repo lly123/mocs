@@ -36,7 +36,7 @@
                 if (typeOf(v[0]) !== typeOf(v[1])) {
                     s.push(keys[v[2]]);
                 }
-                return s
+                return s;
             }, []);
 
             if (!_.isEmpty(typeChangedKeys)) {
