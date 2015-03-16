@@ -2,88 +2,11 @@ env:
   serverName: "nginx/1.4.6 (Ubuntu)"
 
 constant:
-#  host1: http://localhost:8080
-  host1: http://nwt.kz-ec.com
+  host1: http://localhost:8080
+#  host1: http://nwt.kz-ec.com
   dir1: /Users/richard/workspace/akqa/nikewomenswechat/src/main/webapp/static/dist
 
 rule:
-  - request:
-      method: get
-      url: /path?q={q}&p={p:.+}
-    response:
-      json:
-        {
-          a: "{{q}}",
-          b: "{{p}}"
-        }
-
-  - request:
-      method: get
-      url: /api/user/current
-    response:
-      call:
-        url: "{{host1}}{{_}}"
-        cookie: openid=oaSyGt8OPKZFc3jDqBCKgrGoLuBw
-        spy: true
-      json:
-        {
-          "id": 7,
-          "openId": "oaSyGt8OPKZFc3jDqBCKgrGoLuBw",
-          "name": "Freeroom",
-          "trainingSport": {
-            "key": "NTC",
-            "displayName": 1
-          },
-          "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
-          "profilePicture": {
-            "createdAt": 1425868037000,
-            "cropped": {
-              "downloadUrl": "http://nwt.kz-ec.com/userimages/4b497581-e93e-44eb-9389-cc9924ad66f5.jpg",
-              "fileKey": "4b497581-e93e-44eb-9389-cc9924ad66f5.jpg",
-              "storageType": "LOCAL",
-              "fileSize": 20689,
-              "version": 0
-            },
-            "tagLineInfo": {
-              "top": 0.579883,
-              "left": 0.390625
-            }
-          },
-          "isKOL": false
-        }
-
-  - request:
-      method: get
-      url: /api/tip?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
-    response:
-      call:
-        url: "{{host1}}{{_}}"
-        cookie: openid=oaSyGt8OPKZFc3jDqBCKgrGoLuBw
-        spy: true
-
-  - request:
-      method: get
-      url: /api/tip/thanks?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
-    response:
-      call:
-        url: "{{host1}}{{_}}"
-        cookie: openid=oaSyGt8OPKZFc3jDqBCKgrGoLuBw
-        spy: true
-
-  - request:
-      method: get
-      url: /api/user/list?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
-    response:
-      call:
-        url: "{{host1}}{{_}}"
-        cookie: openid=oaSyGt8OPKZFc3jDqBCKgrGoLuBw
-        spy: true
-
-  - request:
-      method: get
-      url: /nw/images/hub-text.2bd37f8b.png
-    response:
-      call: "{{host1}}{{_}}"
 
   - request:
       method: get
@@ -92,18 +15,79 @@ rule:
       file: "{{dir1}}/{{path}}"
 
   - request:
-      method: _
-      url: /seeOther
+      method: get
+      url: /sdk/config
     response:
-      seeOther: http://www.google.com
+      ignore
 
-#  - request:
-#      method: post
-#      url: /p2
-#    response:
-#      save: /photo
+  - request:
+      method: get
+      url: /api/sportscategory
+    response:
+      json:
+        [
+          {
+            "key": "RUNNING",
+            "displayName": "跑步"
+          },
+          {
+            "key": "NTC",
+            "displayName": "NTC"
+          }
+        ]
 
+  - request:
+      method: get
+      url: /api/user/current
+    response:
+      call:
+        url: "{{host1}}{{_}}"
+        cookie: openid=oM_DGs0TB1synvlnRGzLfEqWU-Yk
+        spy: sample
+      json:
+        {
+#          "id": 7,
+          "openId": "oM_DGs0TB1synvlnRGzLfEqWU-Yk"
+#          "name": "Freeroom",
+#          "trainingSport": {
+#            "key": "NTC",
+#            "displayName": 1
+#          },
+#          "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
+#          "profilePicture": {
+#            "createdAt": 1425868037000,
+#            "cropped": {
+#              "downloadUrl": "http://nwt.kz-ec.com/userimages/4b497581-e93e-44eb-9389-cc9924ad66f5.jpg",
+#              "fileKey": "4b497581-e93e-44eb-9389-cc9924ad66f5.jpg",
+#              "storageType": "LOCAL",
+#              "fileSize": 20689,
+#              "version": 0
+#            },
+#            "tagLineInfo": {
+#              "top": 0.579883,
+#              "left": 0.390625
+#            }
+#          },
+#          "isKOL": false
+        }
+
+  - request:
+      method: post
+      url: /api/user/create
+    response:
+      call:
+        url: "{{host1}}{{_}}"
+        cookie: openid=oM_DGs0TB1synvlnRGzLfEqWU-Yk
+        spy: sample
 #      json:
 #        {
-#          path: "{{path}}"
+#          "id": 7,
+#          "openId": "oM_DGs0TB1synvlnRGzLfEqWU-Yk",
+#          "name": "Freeroom",
+#          "trainingSport": {
+#            "key": "NTC",
+#            "displayName": 1
+#          },
+#          "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
+#          "isKOL": false
 #        }

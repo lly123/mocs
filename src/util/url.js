@@ -31,7 +31,7 @@
                 c.regex = regex.escape(url);
             }
 
-            var ret = new RegExp(c.regex).exec(url);
+            var ret = new RegExp('^' + c.regex).exec(url);
 
             return ret === null ?
             {isMatched: false, urlParams: [['_', url]]} :

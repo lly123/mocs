@@ -1,3 +1,4 @@
+/*jshint expr:true */
 (function () {
     'use strict';
 
@@ -6,14 +7,13 @@
     var pj = require('prettyjson');
 
     var notMatchedIncomingRequest = function (request) {
-        console.log(clc.magentaBright('METHOD: '), request.method);
-        console.log(clc.magentaBright('URL: '), request.url);
+        console.log(clc.magentaBright('METHOD: %s, URL: %s'), request.method, request.url);
         console.log(clc.magentaBright('HEADER: '), request.headers);
         console.log('\n');
     };
 
     var callSpy = function (request, headers, body, format) {
-        console.log(clc.green('METHOD: %s, URL %s'), request.method, request.url);
+        console.log(clc.green('METHOD: %s, URL: %s'), request.method, request.url);
 
         if (_.isEqual('sample', format) || _.isEqual('json', format)) {
             console.log(clc.green('RESPONSE HEADER: '), headers);
@@ -29,7 +29,7 @@
     };
 
     var callError = function (request, err) {
-        console.log(clc.red('METHOD: %s, URL %s'), request.method, request.url);
+        console.log(clc.red('METHOD: %s, URL: %s'), request.method, request.url);
         console.log(clc.red('RESPONSE ERROR CODE: '), err.code);
         console.log('\n');
     };

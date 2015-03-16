@@ -80,7 +80,13 @@
                 res.end();
             });
 
-            newReqObj.end();
+            req.on('data', function (chunk) {
+                newReqObj.write(chunk);
+            });
+
+            req.on('end', function () {
+                newReqObj.end();
+            });
         });
     };
 

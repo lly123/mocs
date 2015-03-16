@@ -14,7 +14,7 @@
         try {
             success(yaml.safeLoad(fs.readFileSync(fileName, 'utf8')));
         } catch (e) {
-            error && error();
+            error && error(e);
         }
     };
 
@@ -24,7 +24,8 @@
 
         loadConfig(configFileName, function (c) {
             config = c;
-        }, function () {
+        }, function (e) {
+            console.log(e);
             process.exit(1);
         });
 

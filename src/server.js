@@ -13,6 +13,7 @@
     var resSeeOther = require('./response/seeOther');
     var resFile = require('./response/file');
     var resCall = require('./response/call');
+    var resIgnore = require('./response/ignore');
 
     var globalConfig;
 
@@ -37,7 +38,7 @@
                                 diff.apply('ROOT', rule.response.json, JSON.parse(realData), function (m) {
                                     log.keyChanged(m);
                                 });
-                            } : undefined)
+                            } : undefined);
                 }],
 
                 [rule && rule.response.file, function (e) {
@@ -46,6 +47,10 @@
 
                 [rule && rule.response.seeOther, function (e) {
                     resSeeOther.run(response, e, rule);
+                }],
+
+                [rule && rule.response.ignore, function (e) {
+                    resIgnore.run(response, e);
                 }]
             );
         }, _.first, globalConfig.rules)(request);
