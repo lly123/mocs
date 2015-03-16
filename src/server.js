@@ -14,6 +14,7 @@
     var resFile = require('./response/file');
     var resCall = require('./response/call');
     var resIgnore = require('./response/ignore');
+    var resAddTo = require('./response/addTo');
 
     var globalConfig;
 
@@ -43,6 +44,10 @@
 
                 [rule && rule.response.file, function (e) {
                     resFile.run(response, e, rule);
+                }],
+
+                [rule && rule.response.addTo, function (e) {
+                    resAddTo.run(request, response, e, rule);
                 }],
 
                 [rule && rule.response.seeOther, function (e) {

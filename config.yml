@@ -5,9 +5,9 @@ constant:
   host1: http://localhost:8080
 #  host1: http://nwt.kz-ec.com
   dir1: /Users/richard/workspace/akqa/nikewomenswechat/src/main/webapp/static/dist
+  cookie1: openid=oLapGt2OMpLiznwofVm_aLLXrRLg
 
 rule:
-
   - request:
       method: get
       url: /nw/{path:.+\.(?:[a-z]+)}
@@ -42,12 +42,12 @@ rule:
     response:
       call:
         url: "{{host1}}{{_}}"
-        cookie: openid=oM_DGs0TB1synvlnRGzLfEqWU-Yk
-        spy: sample
+        cookie: "{{cookie1}}"
+        spy: json
       json:
         {
 #          "id": 7,
-          "openId": "oM_DGs0TB1synvlnRGzLfEqWU-Yk"
+          "openId": "{{cookie1}}"
 #          "name": "Freeroom",
 #          "trainingSport": {
 #            "key": "NTC",
@@ -75,19 +75,69 @@ rule:
       method: post
       url: /api/user/create
     response:
+#      call:
+#        url: "{{host1}}{{_}}"
+#        cookie: "{{cookie1}}"
+#        spy: sample
+      json:
+        {
+          "id": 7,
+          "openId": "{{cookie1}}",
+          "name": "Freeroom",
+          "trainingSport": {
+            "key": "NTC",
+            "displayName": 1
+          },
+          "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
+          "isKOL": false
+        }
+
+  - request:
+      id: 1
+      method: get
+      url: /api/tip?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
+    response:
+#      call:
+#        url: "{{host1}}{{_}}"
+#        cookie: "{{cookie1}}"
+#        spy: sample
+      json:
+        []
+
+  - request:
+      method: get
+      url: /api/tip/thanks?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
+    response:
       call:
         url: "{{host1}}{{_}}"
-        cookie: openid=oM_DGs0TB1synvlnRGzLfEqWU-Yk
-        spy: sample
-#      json:
-#        {
-#          "id": 7,
-#          "openId": "oM_DGs0TB1synvlnRGzLfEqWU-Yk",
-#          "name": "Freeroom",
-#          "trainingSport": {
-#            "key": "NTC",
-#            "displayName": 1
-#          },
-#          "avatarURL": "http://wx.qlogo.cn/mmopen/XkOxGf6oBFwhiaE19TbiaUHaA7A90KZwrg3iayj24bxjoX9GbntbUeiafLWWS0V7CmG9XuonU6q054k4ibN7yDbICLgGHQFrV3wZU/0",
-#          "isKOL": false
-#        }
+        cookie: "{{cookie1}}"
+
+  - request:
+      method: get
+      url: /api/user/list?firstResult={firstResult:[0-9]+}&size={size:[0-9]+}
+    response:
+      call:
+        url: "{{host1}}{{_}}"
+        cookie: "{{cookie1}}"
+
+  - request:
+      method: post
+      url: /api/tip
+    response:
+      addTo:
+        id: 1
+        data:
+          {
+            "id": 2,
+            "broadcast": false,
+            "createdAt": 1426487363000,
+            "text": "Hello!!!",
+            "authorId": 17,
+            "authorName": "Freeroom",
+            "authorAvatarURL": "http://wx.qlogo.cn/mmopen/7mz5qKmmU9nctH5nEx9V11wNrAxnOtz4tYJHlaKbcuOvVmjSfKwkMMorBvE9ickyOM5W63MYkLbScv4N0Dac5gPWhDtf13emz/0",
+            "liked": false
+          }
+#      call:
+#        url: "{{host1}}{{_}}"
+#        cookie: "{{cookie1}}"
+#        spy: sample

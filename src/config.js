@@ -20,6 +20,7 @@
 
     var load = function () {
         var configFileName = 'config.yml';
+        var responseData = [];
         var config;
 
         loadConfig(configFileName, function (c) {
@@ -62,7 +63,8 @@
 
             env: function () {
                 return {
-                    serverName: config.env.serverName
+                    serverName: config.env.serverName,
+                    responseData: responseData
                 };
             }
         };

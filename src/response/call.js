@@ -20,7 +20,7 @@
 
     var generateNewRequest = function (req, rule, fn) {
         var realOriginalUrl = _.isObject(rule.response.call) ? rule.response.call.url : rule.response.call;
-        var cookie = _.isObject(rule.response.call) ? rule.response.call.cookie : undefined;
+        var cookie = _.isObject(rule.response.call) ? param.replace(rule.request.params, rule.response.call.cookie) : undefined;
         var newReq = url.parse(param.replace(rule.request.params, realOriginalUrl));
 
         var headers = _.omit(req.headers, function (value, key) {
@@ -57,10 +57,9 @@
             };
 
             var newReqObj = http.request(options, function (r) {
-                var body = '';
-
                 header(env, res, r);
 
+                var body = '';
                 r.on('data', function (chunk) {
                     res.write(chunk);
                     body += chunk;
@@ -75,7 +74,6 @@
 
             newReqObj.on('error', function (err) {
                 log.callError(req, err);
-
                 res.writeHead(500);
                 res.end();
             });
